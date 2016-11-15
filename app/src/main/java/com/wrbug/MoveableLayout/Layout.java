@@ -1,4 +1,4 @@
-package com.wrbug.myapplication;
+package com.wrbug.MoveableLayout;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -58,6 +58,7 @@ public class Layout extends ViewGroup implements View.OnTouchListener {
         }
     }
 
+    @SuppressWarnings("Range")
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
