@@ -56,11 +56,13 @@ public class Layout extends ViewGroup implements View.OnTouchListener {
             h += view.getMeasuredHeight() + 10;
             view.setOnTouchListener(this);
         }
+
     }
 
     @SuppressWarnings("Range")
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        Log.i("aa", "action:" + motionEvent.getAction());
 
         int dx = (int) (motionEvent.getRawX() - xCache[2]);
         int dy = (int) (motionEvent.getRawY()) - xCache[3] - s[1];
@@ -79,7 +81,6 @@ public class Layout extends ViewGroup implements View.OnTouchListener {
             return true;
         } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             view.getLocationInWindow(xCache);
-            Log.i("aa", xCache[0] + ":" + xCache[1]);
             xCache[2] = (int) motionEvent.getRawX() - xCache[0];
             xCache[3] = (int) motionEvent.getRawY() - xCache[1];
             keyDowndelay = System.currentTimeMillis();

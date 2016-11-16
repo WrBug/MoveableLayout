@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.wrbug.myapplication.Layout
+    <com.wrbug.MoveableLayout.Layout
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
@@ -23,9 +23,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="100dp"
             android:text="Button" />
-    </com.wrbug.myapplication.Layout>
+    </com.wrbug.MoveableLayout.Layout>
 
-    <com.wrbug.myapplication.Layout
+    <com.wrbug.MoveableLayout.Layout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -44,7 +44,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="100dp"
             android:text="Button" />
-    </com.wrbug.myapplication.Layout>
+    </com.wrbug.MoveableLayout.Layout>
 
 
 </LinearLayout>
