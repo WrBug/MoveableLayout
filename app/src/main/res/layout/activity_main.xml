@@ -17,13 +17,24 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
             android:text="Button" />
     </com.wrbug.MoveableLayout.MoveableLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Button" />
 
     <com.wrbug.MoveableLayout.MoveableLayout
         android:id="@+id/layout"
@@ -35,15 +46,6 @@
             android:layout_height="wrap_content"
             android:text="Hello World!" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="100dp"
-            android:text="Button" />
     </com.wrbug.MoveableLayout.MoveableLayout>
 
 

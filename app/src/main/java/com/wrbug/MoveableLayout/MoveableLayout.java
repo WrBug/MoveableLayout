@@ -53,9 +53,11 @@ public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
         s = new int[2];
         map = new HashMap<>();
         getLocationInWindow(s);
+        LayoutParams params;
         for (int i4 = 0; i4 < size; i4++) {
             View view = getChildAt(i4);
-            view.layout(0, h, view.getMeasuredWidth(), h + view.getMeasuredHeight());
+            params = (LayoutParams) view.getLayoutParams();
+            view.layout(params.leftMargin, params.topMargin + h, view.getMeasuredWidth() + params.leftMargin, h + view.getMeasuredHeight() + params.topMargin);
             h += view.getMeasuredHeight() + 10;
             view.setOnTouchListener(this);
         }
@@ -115,4 +117,44 @@ public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
         return true;
     }
 
+    public static class LayoutParams extends ViewGroup.MarginLayoutParams {
+        public LayoutParams(Context c, AttributeSet attrs) {
+            super(c, attrs);
+        }
+
+        public LayoutParams(int width, int height) {
+            super(width, height);
+        }
+
+        public LayoutParams(MarginLayoutParams source) {
+            super(source);
+        }
+
+        public LayoutParams(ViewGroup.LayoutParams source) {
+            super(source);
+        }
+    }
+
+    @Override
+    public android.view.ViewGroup.LayoutParams generateLayoutParams(
+            AttributeSet attrs) {
+        return new MoveableLayout.LayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected android.view.ViewGroup.LayoutParams generateDefaultLayoutParams() {
+        return new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    protected android.view.ViewGroup.LayoutParams generateLayoutParams(
+            android.view.ViewGroup.LayoutParams p) {
+        return new MoveableLayout.LayoutParams(p);
+    }
+
+    @Override
+    protected boolean checkLayoutParams(android.view.ViewGroup.LayoutParams p) {
+        return p instanceof MoveableLayout.LayoutParams;
+    }
 }
