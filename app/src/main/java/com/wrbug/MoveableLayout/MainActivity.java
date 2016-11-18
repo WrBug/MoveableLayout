@@ -14,22 +14,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        View view = findViewById(R.id.button);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri=Uri.parse("weixin://dl/scan");
-                Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+                Uri uri = Uri.parse("weixin://dl/scan");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });
 
-        Layout layout = (Layout) findViewById(R.id.layout);
+        MoveableLayout moveableLayout = (MoveableLayout) findViewById(R.id.layout);
         Button button = new Button(this);
         button.setText("ssss");
-        layout.addView(button);
+        moveableLayout.addView(button);
         TextView textView = new TextView(this);
         textView.setText("sdasdasd");
-        layout.addView(textView);
+        moveableLayout.addView(textView);
     }
 
 }
