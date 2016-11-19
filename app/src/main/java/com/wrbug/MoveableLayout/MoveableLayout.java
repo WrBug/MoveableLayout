@@ -85,25 +85,25 @@ public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
                     field.setAccessible(true);
                     Object object = field.get(view);
                     long t = System.currentTimeMillis();
-                    if (t - keyDownDelay < 500) {
-                        field = object.getClass().getDeclaredField("mOnClickListener");
-                        field.setAccessible(true);
-                        object = field.get(object);
-                        Log.i(TAG, view.getClass() + " : clicked");
-                        if (object != null && object instanceof OnClickListener) {
-                            ((OnClickListener) object).onClick(view);
-                        }
-                    } else {
+                    boolean longClickReturn = false;
+                    if (t - keyDownDelay > 500) {
                         field = object.getClass().getDeclaredField("mOnLongClickListener");
                         field.setAccessible(true);
-                        object = field.get(object);
-                        Log.i(TAG, view.getClass() + " : longclicked");
-                        if (object != null && object instanceof OnLongClickListener) {
-                            ((OnLongClickListener) object).onLongClick(view);
+                        Object longClickListener = field.get(object);
+                        if (longClickListener != null && longClickListener instanceof OnLongClickListener) {
+                            longClickReturn = ((OnLongClickListener) longClickListener).onLongClick(view);
+                        }
+                    }
+                    if (!longClickReturn) {
+                        field = object.getClass().getDeclaredField("mOnClickListener");
+                        field.setAccessible(true);
+                        Object clickListener = field.get(object);
+                        if (clickListener != null && clickListener instanceof OnClickListener) {
+                            ((OnClickListener) clickListener).onClick(view);
                         }
                     }
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
 
