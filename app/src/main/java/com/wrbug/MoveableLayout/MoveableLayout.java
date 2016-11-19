@@ -22,7 +22,7 @@ public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
     private Map<View, List<Integer>> map;
     private long keyDownDelay = 0;
     private int[] xCache = new int[4];
-    int s[];
+    int windowInfo[];
     private static String TAG = "MoveableLayout";
 
     public MoveableLayout(Context context) {
@@ -50,9 +50,9 @@ public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
         int size = getChildCount();
         int h = 0;
-        s = new int[2];
+        windowInfo = new int[2];
         map = new HashMap<>();
-        getLocationInWindow(s);
+        getLocationInWindow(windowInfo);
         LayoutParams params;
         for (int i4 = 0; i4 < size; i4++) {
             View view = getChildAt(i4);
@@ -68,7 +68,7 @@ public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         int dx = (int) (motionEvent.getRawX() - xCache[2]);
-        int dy = (int) (motionEvent.getRawY()) - xCache[3] - s[1];
+        int dy = (int) (motionEvent.getRawY()) - xCache[3] - windowInfo[1];
         if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
             view.layout(dx, dy, dx + view.getMeasuredWidth(), dy + view.getMeasuredHeight());
         } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
