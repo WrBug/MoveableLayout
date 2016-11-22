@@ -29,13 +29,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        MoveableLayout moveableLayout = (MoveableLayout) findViewById(R.id.layout);
-        Button button = new Button(this);
-        button.setText("ssss");
-        moveableLayout.addView(button);
-        TextView textView = new TextView(this);
-        textView.setText("sdasdasd");
-        moveableLayout.addView(textView);
     }
 
 }

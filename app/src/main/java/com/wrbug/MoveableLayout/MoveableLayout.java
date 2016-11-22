@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,11 +20,15 @@ import java.util.Map;
  * Created by wrbug on 16-11-15.
  */
 
+@SuppressWarnings("ALL")
 public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
     private Map<View, List<Integer>> map;
     private long keyDownDelay = 0;
     private int[] xCache = new int[4];
     int windowInfo[];
+    LinkedList<View> mChildViews;
+    int[] viewWindowInfo = new int[2];
+    int[] view1WindowInfo = new int[2];
     private static String TAG = "MoveableLayout";
 
     public MoveableLayout(Context context) {
@@ -54,14 +60,46 @@ public class MoveableLayout extends ViewGroup implements View.OnTouchListener {
         map = new HashMap<>();
         getLocationInWindow(windowInfo);
         LayoutParams params;
+        mChildViews = new LinkedList<>();
         for (int i4 = 0; i4 < size; i4++) {
             View view = getChildAt(i4);
             params = (LayoutParams) view.getLayoutParams();
-            view.layout(params.leftMargin, params.topMargin + h, view.getMeasuredWidth() + params.leftMargin, h + view.getMeasuredHeight() + params.topMargin);
-            h += view.getMeasuredHeight() + 10;
+            view.layout(params.leftMargin, params.topMargin, view.getMeasuredWidth() + params.leftMargin, view.getMeasuredHeight() + params.topMargin);
             view.setOnTouchListener(this);
+            mChildViews.add(view);
         }
+        Collections.sort(mChildViews, mComparator());
+    }
 
+    private Comparator<View> mComparator() {
+        return new Comparator<View>() {
+            @Override
+            public int compare(View view, View t1) {
+                view.getLocationInWindow(viewWindowInfo);
+                t1.getLocationInWindow(view1WindowInfo);
+                if (viewWindowInfo[1] < view1WindowInfo[1]) {
+                    if (viewWindowInfo[1] + view.getMeasuredHeight() < view1WindowInfo[1]) {
+                        return -1;
+                    } else {
+                        if (viewWindowInfo[0] < view1WindowInfo[0]) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    }
+                } else {
+                    if (viewWindowInfo[1] > view1WindowInfo[1] + t1.getMeasuredHeight()) {
+                        return 1;
+                    } else {
+                        if (viewWindowInfo[0] < view1WindowInfo[0]) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    }
+                }
+            }
+        };
     }
 
     @SuppressWarnings("Range")
